@@ -130,6 +130,17 @@ class TravelBag(object):
     def __str__(self):
         return f"The {self.getColor()} {self.getName()} bag belongs to {self.getOwner()}; weighs {self.getWeight():3.2f}"
 
+    def __iter__(self):
+        self.nextIterPosition = 0
+        return self
+
+    def __next__(self):
+        if self.nextIterPosition < len(self.contents):
+            self.nextIterPosition += 1
+            return self.contents[self.nextIterPosition - 1]
+        else:
+            raise StopIteration
+
     def addItem(self, newItem):
         if type(newItem) == Item:
             self.contents.append(newItem)
